@@ -7,7 +7,6 @@ import java.util.List;
  * Created by sangwon on 20. 12. 22..
  */
 public class RandomUtil {
-    //TODO 개선의 여지 있음
     public static List<Long> getRandomlyDivideAmountList(long amount, long peopleNumber) {
         long rest = amount - peopleNumber;
         List<Long> result = new ArrayList<>();

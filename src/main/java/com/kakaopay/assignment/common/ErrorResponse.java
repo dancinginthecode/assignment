@@ -2,8 +2,8 @@ package com.kakaopay.assignment.common;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,7 +12,11 @@ import java.util.List;
 @Builder
 @Getter
 public class ErrorResponse {
-    private HttpStatus status;
-    private String message;
     private List<String> errors;
+
+    public static ErrorResponse of(Exception ex) {
+        return ErrorResponse.builder()
+                .errors(Collections.singletonList(ex.getMessage()))
+                .build();
+    }
 }
