@@ -50,7 +50,7 @@ public class DistributionService {
                 .roomId(roomId)
                 .userId(userId)
                 .tokenKey(tokenKey)
-                .distributions(distributions.stream()
+                .tokenDistributions(distributions.stream()
                         .map(TokenDistribution::new)
                         .collect(Collectors.toList()))
                 .build();

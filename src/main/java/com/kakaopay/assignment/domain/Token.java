@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,17 +25,17 @@ public class Token {
 
     private long roomId;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "token_id")
-    private List<TokenDistribution> distributions;
+    @OneToMany(mappedBy = "token", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<TokenDistribution> tokenDistributions = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
 
     @Builder
-    public Token(String tokenKey, long roomId, List<TokenDistribution> distributions, long userId) {
+    public Token(String tokenKey, long roomId, List<TokenDistribution> tokenDistributions, long userId) {
+        this.createdDate = LocalDateTime.now();
         this.tokenKey = tokenKey;
         this.roomId = roomId;
-        this.distributions = distributions;
+        this.tokenDistributions = tokenDistributions;
     }
 }
