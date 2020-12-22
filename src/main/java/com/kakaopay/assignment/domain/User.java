@@ -22,7 +22,11 @@ public class User {
 
     private long balance;
 
-    public void deduct(long amount) {
+    public void deductAmount(long amount) {
         balance -= amount;
+    }
+
+    public void addAmount(long amount) {
+        balance += amount;
     }
 }

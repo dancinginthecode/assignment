@@ -1,6 +1,7 @@
 package com.kakaopay.assignment.common;
 
 import com.kakaopay.assignment.common.exception.NotFoundException;
+import com.kakaopay.assignment.common.exception.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -62,12 +63,26 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({ NotFoundException.class })
-    public ResponseEntity<Object> handleMethodArgumentTypeMismatch(
+    public ResponseEntity<Object> handleNotFound(
             Exception ex, WebRequest request) {
         String message = Objects.isNull(ex.getMessage()) ? "" : ex.getMessage();
 
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .status(HttpStatus.NOT_FOUND)
+                .message(ex.getLocalizedMessage())
+                .errors(Collections.singletonList(message))
+                .build();
+
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), errorResponse.getStatus());
+    }
+
+    @ExceptionHandler({ ValidationException.class })
+    public ResponseEntity<Object> handleValidation(
+            Exception ex, WebRequest request) {
+        String message = Objects.isNull(ex.getMessage()) ? "" : ex.getMessage();
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .status(HttpStatus.BAD_REQUEST)
                 .message(ex.getLocalizedMessage())
                 .errors(Collections.singletonList(message))
                 .build();

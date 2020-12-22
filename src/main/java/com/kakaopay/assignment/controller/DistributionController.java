@@ -31,20 +31,21 @@ public class DistributionController {
 
 
     @PutMapping
-    public ResponseEntity<Void> receive(@RequestHeader(value = "X-USER-ID") long userId,
+    public ResponseEntity<Long> receive(@RequestHeader(value = "X-USER-ID") long userId,
                                         @RequestHeader(value = "X-ROOM-ID") long roomId,
-                                        @RequestParam("token") String token) {
-        distributionService.receive(userId, roomId, token);
-        return ResponseEntity.ok().build();
+                                        @RequestParam("tokenKey") String tokenKey) {
+        ;
+        return ResponseEntity
+                .ok(distributionService.receive(userId, roomId, tokenKey));
     }
 
 
     @GetMapping
     public ResponseEntity<TokenResponse> check(@RequestHeader(value = "X-USER-ID") long userId,
                                                @RequestHeader(value = "X-ROOM-ID") long roomId,
-                                               @RequestParam("token") String token) {
+                                               @RequestParam("tokenKey") String tokenKey) {
         return ResponseEntity.ok(
-                TokenResponse.of(distributionService.checkToken(userId, roomId, token))
+                TokenResponse.of(distributionService.checkToken(userId, roomId, tokenKey))
         );
     }
 

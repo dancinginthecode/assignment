@@ -22,17 +22,24 @@ public class TokenDistribution {
     @JoinColumn(name = "token_id")
     private Token token;
 
-    private boolean available;
+    private Long taker;
 
     private long amount;
 
     @Builder
-    public TokenDistribution(long amount) {
-        this.available = true;
+    public TokenDistribution(Token token, long amount) {
+        this.token = token;
         this.amount = amount;
     }
 
-    public static TokenDistribution of(long amount) {
-        return TokenDistribution.builder().amount(amount).build();
+    public void use(long taker) {
+        this.taker = taker;
+    }
+
+    public static TokenDistribution of(Token token, long amount) {
+        return TokenDistribution.builder()
+                .token(token)
+                .amount(amount)
+                .build();
     }
 }

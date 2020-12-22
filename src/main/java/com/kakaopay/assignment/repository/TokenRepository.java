@@ -4,9 +4,13 @@ import com.kakaopay.assignment.domain.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * Created by sangwon on 20. 12. 22..
  */
 @Repository
 public interface TokenRepository extends JpaRepository<Token, Long> {
+    Optional<Token> findByTokenKeyAndRoomId(String tokenKey, long roomId);
+    Optional<Token> findByTokenKeyAndRoomIdAndOwnerId(String tokenKey, long roomId, long ownerId);
 }
