@@ -7,12 +7,9 @@ import com.kakaopay.assignment.domain.Token;
 import com.kakaopay.assignment.dto.DistributionDto;
 import com.kakaopay.assignment.dto.TokenDto;
 import com.kakaopay.assignment.repository.TokenRepository;
-import com.kakaopay.assignment.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 
 /**
  * Created by sangwon on 20. 12. 22..
@@ -20,11 +17,9 @@ import javax.validation.Valid;
 @Validated
 @Service
 public class DistributionService {
-    final private UserRepository userRepository;
     final private TokenRepository tokenRepository;
 
-    public DistributionService(UserRepository userRepository, TokenRepository tokenRepository) {
-        this.userRepository = userRepository;
+    public DistributionService(TokenRepository tokenRepository) {
         this.tokenRepository = tokenRepository;
     }
 

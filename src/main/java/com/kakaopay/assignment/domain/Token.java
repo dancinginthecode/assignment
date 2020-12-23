@@ -1,6 +1,5 @@
 package com.kakaopay.assignment.domain;
 
-import com.kakaopay.assignment.common.exception.NotFoundException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -38,7 +36,7 @@ public class Token {
     @OneToMany(mappedBy = "token", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TokenDistribution> tokenDistributions = new ArrayList<>();
 
-    @Column(nullable = false, updatable = false)
+    //@Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
 
     @Builder
@@ -51,14 +49,5 @@ public class Token {
                 .collect(Collectors.toList());
         this.ownerId = ownerId;
         this.amount = amount;
-    }
-
-    public long distribute(long taker) {
-        TokenDistribution distribution = tokenDistributions.stream()
-                .filter(c -> Objects.isNull(c.getTaker()))
-                .findAny().orElseThrow(() -> new NotFoundException("분배될 항목이 존재하지 않음"));
-
-        distribution.use(taker);
-        return distribution.getAmount();
     }
 }

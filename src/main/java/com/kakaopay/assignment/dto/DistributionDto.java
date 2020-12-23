@@ -17,9 +17,11 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class DistributionDto {
     @NotNull
+    @Min(1)
     Long userId;
 
     @NotNull
+    @Min(1)
     Long roomId;
 
     @NotNull

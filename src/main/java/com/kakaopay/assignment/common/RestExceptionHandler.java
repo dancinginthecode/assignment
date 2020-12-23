@@ -1,7 +1,5 @@
 package com.kakaopay.assignment.common;
 
-import com.kakaopay.assignment.common.exception.NotFoundException;
-import com.kakaopay.assignment.common.exception.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -62,18 +60,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({MissingRequestHeaderException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<Object> handleMissingRequestHeaderException(Exception ex, WebRequest request) {
-        return new ResponseEntity<>(ErrorResponse.of(ex), new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler({NotFoundException.class})
-    public ResponseEntity<Object> handleNotFound(
-            Exception ex, WebRequest request) {
-        return new ResponseEntity<>(ErrorResponse.of(ex), new HttpHeaders(), HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler({ValidationException.class})
-    public ResponseEntity<Object> handleValidation(
-            Exception ex, WebRequest request) {
         return new ResponseEntity<>(ErrorResponse.of(ex), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 

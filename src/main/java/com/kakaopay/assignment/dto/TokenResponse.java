@@ -35,7 +35,7 @@ public class TokenResponse {
                 .sharedInfo(token.getTokenDistributions()
                         .stream()
                         .filter(td -> Objects.nonNull(td.getTaker()))
-                        .map(td -> Arrays.asList(td.getTaker(), td.getAmount()))
+                        .map(td -> Arrays.asList(td.getAmount(), td.getTaker()))
                         .collect(Collectors.toList())
                 )
                 .build();
