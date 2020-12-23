@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -61,6 +62,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({MissingRequestHeaderException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<Object> handleMissingRequestHeaderException(Exception ex, WebRequest request) {
         return new ResponseEntity<>(ErrorResponse.of(ex), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({ObjectOptimisticLockingFailureException.class})
+    public ResponseEntity<Object> handleObjectOptimisticLockingFailureException(
+            Exception ex, WebRequest request) {
+        return new ResponseEntity<>(ErrorResponse.of(ex), new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler({Exception.class})

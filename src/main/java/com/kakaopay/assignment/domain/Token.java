@@ -22,9 +22,6 @@ public class Token {
     @Id
     private long id;
 
-    @Version
-    private long version;
-
     private long ownerId;
 
     private long amount;

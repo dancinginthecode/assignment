@@ -18,6 +18,9 @@ public class TokenDistribution {
     @Id
     private long id;
 
+    @Version
+    private long version;
+
     @ManyToOne
     @JoinColumn(name = "token_id")
     private Token token;
