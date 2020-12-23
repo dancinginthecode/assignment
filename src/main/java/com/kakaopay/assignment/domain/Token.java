@@ -56,7 +56,7 @@ public class Token {
     public long distribute(long taker) {
         TokenDistribution distribution = tokenDistributions.stream()
                 .filter(c -> Objects.isNull(c.getTaker()))
-                .findAny().orElseThrow(() -> new NotFoundException("이미 끝났음"));
+                .findAny().orElseThrow(() -> new NotFoundException("분배될 항목이 존재하지 않음"));
 
         distribution.use(taker);
         return distribution.getAmount();

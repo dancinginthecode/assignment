@@ -28,16 +28,16 @@ import java.util.*;
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<String> errors = new ArrayList<>();
+        List<String> messages = new ArrayList<>();
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            errors.add(error.getField() + ": " + error.getDefaultMessage());
+            messages.add(error.getField() + ": " + error.getDefaultMessage());
         }
         for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-            errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
+            messages.add(error.getObjectName() + ": " + error.getDefaultMessage());
         }
 
         ErrorResponse errorResponse = ErrorResponse.builder()
-                .errors(errors)
+                .messages(messages)
                 .build();
 
         return handleExceptionInternal(ex, errorResponse, headers, HttpStatus.BAD_REQUEST, request);
@@ -49,7 +49,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatus status, WebRequest request) {
         String error = ex.getParameterName() + " parameter is missing";
         ErrorResponse errorResponse = ErrorResponse.builder()
-                .errors(Collections.singletonList(error))
+                .messages(Collections.singletonList(error))
                 .build();
 
         return new ResponseEntity<>(errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
@@ -77,5 +77,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(ErrorResponse.of(ex), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<Object> handleOthers(
+            Exception ex, WebRequest request) {
+        return new ResponseEntity<>(ErrorResponse.of(ex), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 }

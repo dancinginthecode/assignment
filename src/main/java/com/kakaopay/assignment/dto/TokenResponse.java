@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 @Getter
 @Builder
 public class TokenResponse {
-    String distributeDate;
-    long amount;
-    long completedAmount;
+    private String distributeDate;
+    private long amount;
+    private long completedAmount;
 
     List<List<Long>> sharedInfo;
 

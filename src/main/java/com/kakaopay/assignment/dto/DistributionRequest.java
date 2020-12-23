@@ -1,6 +1,5 @@
 package com.kakaopay.assignment.dto;
 
-import com.kakaopay.assignment.common.validation.AmountGreaterThanPeopleNumber;
 import lombok.Getter;
 
 import javax.validation.constraints.Min;
@@ -13,9 +12,9 @@ import javax.validation.constraints.NotNull;
 public class DistributionRequest {
     @NotNull
     @Min(1)
-    Long amount;
+    private Long amount;
 
     @NotNull
     @Min(1)
-    Long peopleNumber;
+    private Long peopleNumber;
 }

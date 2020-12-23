@@ -7,7 +7,7 @@ import java.util.List;
  * Created by sangwon on 20. 12. 22..
  */
 public class RandomUtil {
-    public static List<Long> getRandomlyDivideAmountList(long amount, long peopleNumber) {
+    public static List<Long> getRandomlyDividedAmountList(long amount, long peopleNumber) {
         long rest = amount - peopleNumber;
         List<Long> result = new ArrayList<>();
         for (int i = 0; i < peopleNumber; i++) {
@@ -22,8 +22,8 @@ public class RandomUtil {
         return result;
     }
 
-    public static String getRandomTokenKey() {
-        char[] randomChars = new char[3];
+    public static String getRandomTokenKey(int n) {
+        char[] randomChars = new char[n];
         for (int i = 0; i < randomChars.length; i++) {
             char randomChar;
             if(Math.floor(Math.random() * 10) % 2 == 1){

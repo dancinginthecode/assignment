@@ -1,5 +1,6 @@
 package com.kakaopay.assignment.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,11 @@ public class User {
     private long version;
 
     private long balance;
+
+    @Builder
+    public User(long balance){
+        this.balance = balance;
+    }
 
     public void deductAmount(long amount) {
         balance -= amount;

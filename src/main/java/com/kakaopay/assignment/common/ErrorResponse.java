@@ -12,11 +12,11 @@ import java.util.List;
 @Builder
 @Getter
 public class ErrorResponse {
-    private List<String> errors;
+    private List<String> messages;
 
     public static ErrorResponse of(Exception ex) {
         return ErrorResponse.builder()
-                .errors(Collections.singletonList(ex.getMessage()))
+                .messages(Collections.singletonList(ex.getMessage()))
                 .build();
     }
 }
